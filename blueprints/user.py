@@ -64,7 +64,7 @@ def logout():
     session.clear()
     return redirect(url_for("user.login"))
 
-@bp.route("/captcha")
+@bp.route("/captcha",methods=['POST'])
 def get_captcha():
     email = request.form.get("email")
     letters = string.ascii_letters+string.digits
