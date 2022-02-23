@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}骑手界面{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+
+{% block body %}
+  <h1 align="center">骑手界面</h1>
+  <h2> 骑手您好！您拥有收益：{{ money }}元</h2>
+  {% for waimai1 in waimai %}
+    <li>
+      <div class="side-question">
+
+      </div>
+      <div class="question-main">
+        <div class="question-title">
+          配餐：{{ waimai1.dish }}
+        </div>
+        <div>配送地点：{{ waimai1.delivery_address }}</div>
+        <div>
+          电话号码：{{ waimai1.telephone_number }}
+        </div>
+
+
+        <div class="question-detail">
+          抵达时间：<span class="question-time">{{ waimai1.arrival_time }}</span>
+        </div>
+        <div>
+
+          {% if waimai1.state == 0 %}
+            <div>
+              <form action="{{ url_for('qa.take_orders',dish_id=waimai1.id) }}" method="post">
+                <button type="submit" class="btn btn-primary">接单</button>
+              </form>
+            </div>
+          {% else %}
+            已完成
+          {% endif %}
+        </div>
+
+      </div>
+    </li>
+
+  {% endfor %}
+{% endblock %}

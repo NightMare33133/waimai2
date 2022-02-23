@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}管理员界面{% endblock %}
+
+{% block body %}
+  <h1 align="center">管理员界面</h1>
+  <h2>管理员您好！</h2>
+  <h3>菜品管理</h3>
+  {% for comment in comments %}
+    <li>
+
+      <div class="question-main">
+        <div class="question-title">菜品：
+          {{ comment.title }}</div>
+        <div>
+          <a href="{{ url_for('qa.delete_comment',comment_id=comment.id) }}">删除</a>
+        </div>
+
+      </div>
+    </li>
+  {% endfor %}
+    <h3>外卖订单管理</h3>
+    {% for waimai1 in waimai %}
+    <li>
+
+      <div class="question-main">
+        <div class="question-title">订单信息：
+          {{ waimai1.dish }}</div>
+        <div>
+          <a href="{{ url_for('qa.delete_dish',dish_id=waimai1.id) }}">删除</a>
+        </div>
+
+      </div>
+    </li>
+  {% endfor %}
+{% endblock %}

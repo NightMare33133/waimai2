@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}枝江外卖-首页{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+
+{% block body %}
+  <div class="row" style="margin-top: 20px;">
+    <div class="col"></div>
+    <div class="col-8">
+      <ul class="question-ul">
+
+        {% for comment in comments %}
+          <li>
+            <div class="side-question">
+              <img class="side-question-avatar" src="{{ url_for('static',filename=comment.author.icon) }}" alt="">
+            </div>
+            <div class="question-main">
+              <div class="question-title"><a
+                      href="{{ url_for('qa.comment_detail',comment_id=comment.id) }}">{{ comment.title }}</a></div>
+              <div class="question-content">{{ comment.content }}</div>
+
+              <div>
+                <img src="{% if comment.icon %} {{ url_for('static',filename=comment.icon) }} {% endif %}" alt=""
+                     width="200" height="200">
+              </div>
+
+              <div class="question-detail">
+                <span class="question-author">{{ comment.author.username }}</span>
+                <span class="question-time">{{ comment.create_time }}</span>
+              </div>
+
+              <div>
+                <a href="{{ url_for('qa.delete_comment',comment_id=comment.id) }}">删除</a>
+              </div>
+
+            </div>
+          </li>
+        {% endfor %}
+
+        <form action="{{ url_for('qa.order') }}" method="post">
+          <div style="text-align: right;">
+            <button type="submit" class="btn btn-primary">下单</button>
+          </div>
+        </form>
+      </ul>
+    </div>
+    <div class="col"></div>
+  </div>
+{% endblock %}

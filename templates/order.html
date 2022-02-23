@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}下单{% endblock %}
+
+{% block body %}
+<h1 align="center">请填写详细信息</h1>
+  <div class="row mt-4">
+    <div class="col"></div>
+      <form action="{{ url_for('qa.send') }}" method="post">
+
+        <div class="form-control">
+          <label for="exampleInputDish">餐品名称</label>
+          <input type="text" id="exampleInputDish" name="dish">
+        </div>
+
+        <div class="form-control">
+          <label for="exampleInputAddress">送餐地址</label>
+          <input type="text" id="exampleInputAddress" name="address">
+        </div>
+
+        <div class="form-control">
+          <label for="exampleInputTele">联系电话</label>
+          <input type="text" id="exampleInputTele" name="telephone">
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary btn-block">提交订单</button>
+      </form>
+    <div class="col"></div>
+  </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ comment.title }}{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/detail.css') }}">
+{% endblock %}
+
+{% block body %}
+  <div class="row" style="margin-top: 20px;">
+    <div class="col"></div>
+    <div class="col-8" style="background-color: #fff;padding: 20px;">
+      <h3 class="page-title">{{ comment.title }}</h3>
+      <p class="question-info">
+        <span>作者：{{ comment.author.username }}</span>
+        <span>时间：{{ comment.create_time }}</span>
+      </p>
+      <hr>
+      <p class="question-content">{{ comment.content }}</p>
+      <hr>
+      <div>
+                <img src="{% if comment.icon %} {{ url_for('static',filename=comment.icon) }} {% endif %}" alt=""
+                     width="500" height="500">
+      </div>
+      <p>
+
+      </p>
+
+
+
+      <h4 class="comment-group-title">评论（{{ comment.answers|length }}）：</h4>
+      <form action="{{ url_for('qa.answer',comment_id=comment.id) }}" method="post">
+        <div class="form-group">
+          <input type="text" placeholder="请填写评论" name="content" class="form-control">
+        </div>
+        {% for message in get_flashed_messages() %}
+          <div class="form-group">
+            <div class="text-danger">{{ message }}</div>
+          </div>
+        {% endfor %}
+        <div class="form-group" style="text-align: right;">
+          <button class="btn btn-primary">评论</button>
+        </div>
+      </form>
+
+      <ul class="comment-group">
+        {% for answer in comment.answers %}
+          <li>
+            <div class="user-info">
+              <img class="avatar" src="{{ url_for('static',filename=answer.author.icon) }}" alt="">
+              <span class="username">{{ answer.author.username }}</span>
+              <span class="create-time">{{ answer.create_time }}</span>
+            </div>
+            <p class="comment-content">{{ answer.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col"></div>
+  </div>
+{% endblock %}
